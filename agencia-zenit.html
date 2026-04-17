@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZENIT — Agência & Hub de Marketing Digital</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Questrial&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── TOKENS ───────────────────────────────────────── */
+    :root {
+      --black:       #080B14;
+      --card-bg:     rgba(255,255,255,0.04);
+      --card-border: rgba(255,255,255,0.09);
+      --white:       #FFFFFF;
+      --muted:       rgba(255,255,255,0.52);
+      /* ── nova paleta azul autoridade ── */
+      --accent:      #3B82F6;
+      --accent-deep: #1D4ED8;
+      --accent-light:#60A5FA;
+      --accent-glow: rgba(59,130,246,0.22);
+      --grd:         linear-gradient(135deg, #3B82F6 0%, #6366F1 100%);
+      --grd-text:    linear-gradient(135deg, #60A5FA 0%, #818CF8 100%);
+      /* legados mantidos para blobs */
+      --orange:      #3B82F6;
+      --orange-glow: rgba(59,130,246,0.18);
+      --blue:        #6366F1;
+      --blue-glow:   rgba(99,102,241,0.18);
+      --cyan:        #60A5FA;
+      --serif:       'DM Serif Display', Georgia, serif;
+      --sans:        'Questrial', 'DM Sans', system-ui, sans-serif;
+    }
+
+    /* ─── RESET ────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 19px; }
+    body {
+      font-family: var(--sans);
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── UTILITY ──────────────────────────────────────── */
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+    section { padding: 100px 0; }
+
+    .serif { font-family: var(--serif); }
+
+    /* glassmorphism card */
+    .glass {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    /* accent text */
+    .accent-orange {
+      background: var(--grd-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .accent-blue   { color: var(--cyan); }
+
+    /* CTA buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--sans); font-weight: 500; font-size: .95rem;
+      border-radius: 100px; cursor: pointer; text-decoration: none;
+      transition: opacity .2s, transform .2s;
+      padding: 14px 30px; border: none;
+    }
+    .btn:hover { opacity: .88; transform: translateY(-2px); }
+    .btn-orange {
+      background: var(--grd);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 6px 28px rgba(59,130,246,.35);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--card-border);
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.3); }
+    .btn-wa-nav {
+      background: transparent;
+      color: var(--white);
+      font-weight: 500;
+      padding: 10px 20px;
+      font-size: .85rem;
+      border: 1px solid rgba(255,255,255,.18);
+      letter-spacing: .3px;
+    }
+    .btn-wa-nav:hover { border-color: rgba(255,255,255,.42); background: rgba(255,255,255,.05); opacity: 1; }
+
+    /* ─── AMBIENT BLOBS ────────────────────────────────── */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+    }
+    .blob-orange { background: var(--orange-glow); }
+    .blob-blue   { background: var(--blue-glow); }
+
+    /* ─── NAV ──────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 0;
+      background: rgba(10,10,15,0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    /* ── SVG LOGO ── */
+    .nav-logo { text-decoration: none; display: flex; align-items: center; }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted); font-size: .9rem; text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    /* ─── HERO ─────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero .blob-orange {
+      width: 520px; height: 520px;
+      top: -120px; left: -140px;
+      opacity: .55;
+    }
+    #hero .blob-blue {
+      width: 480px; height: 480px;
+      bottom: -80px; right: -100px;
+      opacity: .45;
+    }
+
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(59,130,246,.12);
+      border: 1px solid rgba(59,130,246,.3);
+      color: var(--accent-light);
+      font-size: .8rem; font-weight: 500;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 5px 16px; border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: 1.08;
+      margin-bottom: 24px;
+      font-weight: 400;
+    }
+    .hero-sub {
+      color: var(--muted);
+      font-size: 1.05rem; line-height: 1.75;
+      max-width: 460px;
+      margin-bottom: 40px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* hero visual — phone mockup area */
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+      position: relative;
+    }
+    .phone-frame {
+      width: 260px; height: 500px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 40px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.1);
+    }
+    .phone-notch {
+      width: 90px; height: 24px;
+      background: var(--black);
+      border-radius: 0 0 16px 16px;
+      margin: 0 auto;
+    }
+    .phone-screen {
+      padding: 16px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .phone-metric {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+    .phone-metric .metric-label { font-size: .72rem; color: var(--muted); margin-bottom: 4px; }
+    .phone-metric .metric-val {
+      font-family: var(--serif); font-size: 1.6rem;
+      color: var(--white);
+    }
+    .metric-up { color: #4ADE80; font-size: .75rem; }
+
+    .phone-bar-wrap { margin-top: 4px; }
+    .phone-bar { height: 4px; background: rgba(255,255,255,.1); border-radius: 4px; }
+    .phone-bar-fill { height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--orange), var(--cyan)); }
+
+    /* floating tags */
+    .float-tag {
+      position: absolute;
+      background: rgba(59,130,246,.18);
+      border: 1px solid rgba(59,130,246,.35);
+      color: var(--accent-light);
+      font-size: .75rem; font-weight: 600;
+      padding: 6px 14px; border-radius: 100px;
+      animation: floatY 4s ease-in-out infinite;
+    }
+    .float-tag.blue-tag {
+      background: rgba(41,198,224,.12);
+      border-color: rgba(41,198,224,.3);
+      color: var(--cyan);
+      animation-delay: 2s;
+    }
+    .float-tag:nth-child(2) { top: 20px; right: -30px; }
+    .float-tag:nth-child(3) { bottom: 60px; left: -40px; }
+
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* ─── ABOUT ─────────────────────────────────────────── */
+    #sobre {
+      background: linear-gradient(180deg, var(--black) 0%, #0D0D18 100%);
+      position: relative; overflow: hidden;
+    }
+    #sobre .blob-orange {
+      width: 400px; height: 400px;
+      top: -60px; right: -80px;
+      opacity: .3;
+    }
+    .about-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .about-label {
+      font-size: .8rem; font-weight: 500; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 20px;
+    }
+    .about-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.15; margin-bottom: 24px;
+    }
+    .about-body { color: var(--muted); font-size: 1rem; line-height: 1.8; }
+    .about-visual .glass { padding: 36px 32px; }
+    .about-list { display: flex; flex-direction: column; gap: 20px; }
+    .about-item { display: flex; gap: 16px; align-items: flex-start; }
+    .about-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: rgba(59,130,246,.1);
+      border: 1px solid rgba(59,130,246,.2);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .about-item-text h4 { font-size: .95rem; font-weight: 600; margin-bottom: 4px; }
+    .about-item-text p { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+
+    /* ─── SERVICES ──────────────────────────────────────── */
+    #servicos { position: relative; overflow: hidden; }
+    #servicos .blob-blue {
+      width: 500px; height: 500px;
+      bottom: -100px; left: -100px;
+      opacity: .35;
+    }
+    .section-header { text-align: left; margin-bottom: 56px; }
+    .section-label {
+      display: inline-block;
+      font-size: .8rem; font-weight: 500; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      position: relative; z-index: 1;
+    }
+    .svc-card {
+      padding: 32px 28px;
+      transition: border-color .3s, transform .3s;
+    }
+    .svc-card:hover { border-color: rgba(59,130,246,.3); transform: translateY(-6px); }
+    .svc-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: rgba(59,130,246,.08);
+      border: 1px solid rgba(59,130,246,.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+    .svc-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 10px; }
+    .svc-card p { font-size: .88rem; color: var(--muted); line-height: 1.7; }
+
+    /* ─── JOURNEY (ex-resultados) ───────────────────────── */
+    #jornada {
+      background: #0D0D18;
+      position: relative; overflow: hidden;
+    }
+    #jornada .blob-orange {
+      width: 460px; height: 460px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: .18;
+    }
+
+    .journey-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      position: relative; z-index: 1;
+    }
+    .step-card {
+      padding: 36px 32px;
+      position: relative;
+      transition: border-color .3s;
+    }
+    .step-card:hover { border-color: rgba(41,198,224,.3); }
+
+    .step-number {
+      font-family: var(--serif);
+      font-size: 3.5rem;
+      line-height: 1;
+      color: rgba(59,130,246,.2);
+      margin-bottom: 16px;
+      letter-spacing: -2px;
+    }
+    .step-card h3 {
+      font-size: 1.1rem; font-weight: 600; margin-bottom: 12px;
+    }
+    .step-card p { font-size: .9rem; color: var(--muted); line-height: 1.75; }
+    .step-tag {
+      display: inline-block;
+      margin-top: 16px;
+      background: rgba(41,198,224,.1);
+      border: 1px solid rgba(41,198,224,.2);
+      color: var(--cyan);
+      font-size: .75rem; font-weight: 500;
+      padding: 4px 12px; border-radius: 100px;
+    }
+
+    /* full-width step at bottom */
+    .step-card.full { grid-column: 1 / -1; }
+
+    /* highlighted steps 02 & 03 */
+    .step-highlight {
+      border-color: rgba(59,130,246,.28);
+      background: linear-gradient(135deg, rgba(59,130,246,.06) 0%, rgba(255,255,255,.03) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .step-highlight::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      border-radius: 20px 20px 0 0;
+    }
+    .step-highlight .step-number { color: rgba(59,130,246,.45); }
+    .step-highlight h3 { color: var(--accent-light); }
+
+    /* ─── REVIEWS ───────────────────────────────────────── */
+    #depoimentos { position: relative; overflow: hidden; }
+    #depoimentos .blob-blue {
+      width: 400px; height: 400px;
+      top: -60px; right: -60px;
+      opacity: .3;
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      position: relative; z-index: 1;
+    }
+    .review-card { padding: 28px 24px; }
+    .review-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--orange), var(--cyan));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1rem;
+      margin-bottom: 16px;
+    }
+    .review-name { font-weight: 600; font-size: .95rem; margin-bottom: 4px; }
+    .review-role { font-size: .78rem; color: var(--muted); margin-bottom: 16px; }
+    .review-stars { color: var(--accent-light); font-size: .95rem; margin-bottom: 12px; }
+    .review-text { font-size: .88rem; color: var(--muted); line-height: 1.7; }
+
+    /* ─── TEAM / ABOUT US ───────────────────────────────── */
+    #equipe {
+      background: #0D0D18;
+      position: relative; overflow: hidden;
+    }
+    #equipe .blob-orange {
+      width: 420px; height: 420px;
+      bottom: -60px; left: -80px;
+      opacity: .3;
+    }
+    .team-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .team-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.15; margin-bottom: 20px;
+    }
+    .team-body { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 32px; }
+
+    .team-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .stat-box {
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px 18px;
+    }
+    .stat-num {
+      font-family: var(--serif); font-size: 2rem;
+      color: var(--accent-light); margin-bottom: 4px;
+    }
+    .stat-label { font-size: .8rem; color: var(--muted); }
+
+    .team-img-wrap .glass { padding: 24px; }
+    .team-img-placeholder {
+      width: 100%; aspect-ratio: 4/3;
+      background: linear-gradient(135deg, rgba(59,130,246,.1), rgba(99,102,241,.1));
+      border-radius: 14px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+    .team-img-placeholder .team-emoji { font-size: 3rem; }
+
+    /* ─── CONTACT ───────────────────────────────────────── */
+    #contato {
+      position: relative; overflow: hidden;
+    }
+    #contato .blob-blue {
+      width: 500px; height: 500px;
+      bottom: -100px; right: -100px;
+      opacity: .35;
+    }
+    #contato .blob-orange {
+      width: 300px; height: 300px;
+      top: 0; left: -60px;
+      opacity: .25;
+    }
+    .contact-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start;
+      position: relative; z-index: 1;
+    }
+    .contact-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.15; margin-bottom: 16px;
+    }
+    .contact-sub { color: var(--muted); font-size: 1rem; line-height: 1.75; margin-bottom: 28px; }
+
+    /* diagnóstico passo a passo */
+    .diag-steps { display: flex; flex-direction: column; gap: 18px; }
+    .diag-item { display: flex; gap: 16px; align-items: flex-start; }
+    .diag-num {
+      width: 30px; height: 30px; flex-shrink: 0;
+      background: rgba(59,130,246,.12);
+      border: 1px solid rgba(59,130,246,.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; font-weight: 700; color: var(--accent-light);
+    }
+    .diag-text strong { display: block; font-size: .92rem; font-weight: 600; margin-bottom: 3px; }
+    .diag-text p { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+    .contact-items { display: flex; flex-direction: column; gap: 20px; }
+    .contact-item { display: flex; gap: 16px; align-items: center; }
+    .contact-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .contact-item-text p { font-size: .8rem; color: var(--muted); }
+    .contact-item-text a {
+      color: var(--white); font-size: .95rem;
+      text-decoration: none; font-weight: 500;
+    }
+    .contact-item-text a:hover { color: var(--accent-light); }
+
+    .contact-form .glass { padding: 36px 32px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block; font-size: .8rem; color: var(--muted);
+      margin-bottom: 8px; font-weight: 500;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 13px 16px;
+      color: var(--white);
+      font-family: var(--sans); font-size: .9rem;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: rgba(59,130,246,.5);
+    }
+    .form-group select option { background: #1a1a2e; }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-submit { width: 100%; justify-content: center; font-size: 1rem; padding: 16px; }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 40px 0 32px;
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 20px;
+    }
+    .footer-copy { color: var(--muted); font-size: .83rem; }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { color: var(--muted); font-size: .85rem; text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--white); }
+    .social-row { display: flex; gap: 12px; }
+    .social-btn {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; font-size: .9rem;
+      transition: background .2s, border-color .2s;
+    }
+    .social-btn:hover { background: rgba(59,130,246,.15); border-color: rgba(59,130,246,.35); }
+
+    /* ─── WA FLOAT ──────────────────────────────────────── */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 200;
+      width: 56px; height: 56px;
+      background: var(--grd);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      text-decoration: none;
+      box-shadow: 0 8px 28px rgba(59,130,246,.45);
+      transition: transform .2s;
+      animation: waPulse 3s 4s ease-in-out infinite;
+    }
+    .wa-float:hover { transform: scale(1.1); }
+    @keyframes waPulse {
+      0%, 88%, 100% { transform: scale(1); }
+      92% { transform: scale(1.12); }
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .hero-inner, .about-inner, .team-inner, .contact-inner { grid-template-columns: 1fr; }
+      .services-grid, .reviews-grid { grid-template-columns: 1fr; }
+      .journey-grid { grid-template-columns: 1fr; }
+      .step-card.full { grid-column: auto; }
+      .hero-visual { display: none; }
+      .nav-links { display: none; }
+      .footer-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ══════════════════════════════════════════════ -->
+<nav>
+  <div class="container nav-inner">
+    <!-- LOGO SVG -->
+    <a href="#hero" class="nav-logo" title="Agência Digital Zenit">
+      <svg width="158" height="38" viewBox="0 0 158 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="rktGrd" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#3B82F6"/>
+            <stop offset="100%" stop-color="#818CF8"/>
+          </linearGradient>
+        </defs>
+        <g transform="translate(2,3)">
+          <path d="M13 2 C13 2 18 6 18 14 L13 17 L8 14 C8 6 13 2 13 2Z"
+                fill="none" stroke="url(#rktGrd)" stroke-width="1.5" stroke-linejoin="round"/>
+          <circle cx="13" cy="11" r="2" fill="none" stroke="url(#rktGrd)" stroke-width="1.2"/>
+          <path d="M8 14 L5 18 L8 17" fill="none" stroke="url(#rktGrd)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M18 14 L21 18 L18 17" fill="none" stroke="url(#rktGrd)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M11 17 Q13 21 15 17" fill="none" stroke="url(#rktGrd)" stroke-width="1.3" stroke-linecap="round" opacity=".7"/>
+          <path d="M12 18 Q13 23 14 18" fill="none" stroke="url(#rktGrd)" stroke-width="1" stroke-linecap="round" opacity=".4"/>
+          <rect x="25" y="20" width="3" height="6" rx="1" fill="url(#rktGrd)" opacity=".5"/>
+          <rect x="30" y="15" width="3" height="11" rx="1" fill="url(#rktGrd)" opacity=".7"/>
+          <rect x="35" y="10" width="3" height="16" rx="1" fill="url(#rktGrd)"/>
+          <polyline points="26.5,20 31.5,14 36.5,9"
+                    fill="none" stroke="#60A5FA" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+          <circle cx="36.5" cy="9" r="1.5" fill="#60A5FA"/>
+        </g>
+        <text x="50" y="21" font-family="Questrial, sans-serif" font-size="15" fill="#FFFFFF" letter-spacing="3">ZENIT</text>
+        <text x="50" y="33" font-family="Questrial, sans-serif" font-size="7" fill="rgba(255,255,255,0.38)" letter-spacing="3">AGÊNCIA &amp; HUB</text>
+      </svg>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#sobre">O que fazemos</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#jornada">Como funciona</a></li>
+      <li><a href="#equipe">Quem somos</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20a%20ZENIT." target="_blank" class="btn btn-wa-nav">
+      Falar com a gente
+    </a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ══════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="blob blob-orange" style="width:520px;height:520px;top:-120px;left:-160px;"></div>
+  <div class="blob blob-blue" style="width:460px;height:460px;bottom:-80px;right:-100px;"></div>
+
+  <div class="container hero-inner">
+    <div class="hero-left">
+      <span class="hero-eyebrow">Agência & Hub · Estratégia · Presença Digital</span>
+      <h1 class="hero-title serif">
+        Mais clientes.<br />
+        Menos trabalho<br />
+        <span class="accent-orange">manual.</span>
+      </h1>
+      <p class="hero-sub">
+        Ajudamos empresas e empreendedores a estruturar seu negócio no digital — com estratégia, conteúdo e presença consistente em todos os canais.
+      </p>
+      <div class="hero-actions">
+        <a href="#contato" class="btn btn-orange">Quero começar agora</a>
+        <a href="#jornada" class="btn btn-ghost">Ver como funciona</a>
+      </div>
+    </div>
+
+    <!-- Phone mockup -->
+    <div class="hero-visual">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div style="font-size:.7rem;color:rgba(255,255,255,.4);padding:4px 0;">Painel Zenit · Hoje</div>
+          <div class="phone-metric">
+            <div class="metric-label">Novos leads hoje</div>
+            <div class="metric-val">38 <span class="metric-up">↑ +14%</span></div>
+            <div class="phone-bar-wrap"><div class="phone-bar"><div class="phone-bar-fill" style="width:72%"></div></div></div>
+          </div>
+          <div class="phone-metric">
+            <div class="metric-label">Mensagens respondidas</div>
+            <div class="metric-val">127 <span class="metric-up">↑ auto</span></div>
+            <div class="phone-bar-wrap"><div class="phone-bar"><div class="phone-bar-fill" style="width:90%"></div></div></div>
+          </div>
+          <div class="phone-metric">
+            <div class="metric-label">Vendas fechadas</div>
+            <div class="metric-val">12 <span class="metric-up">↑ +8%</span></div>
+            <div class="phone-bar-wrap"><div class="phone-bar"><div class="phone-bar-fill" style="width:55%"></div></div></div>
+          </div>
+          <div style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);border-radius:12px;padding:12px;font-size:.75rem;color:rgba(255,255,255,.6);line-height:1.5;">
+            🤖 IA respondeu 127 mensagens enquanto você dormia.
+          </div>
+        </div>
+      </div>
+      <span class="float-tag">+127 mensagens respondidas</span>
+      <span class="float-tag blue-tag">IA ativa 24h</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ O QUE FAZEMOS ═══════════════════════════════════ -->
+<section id="sobre">
+  <div class="blob blob-orange" style="width:400px;height:400px;top:-60px;right:-80px;opacity:.28;"></div>
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-text">
+        <p class="about-label">O que é a ZENIT?</p>
+        <h2 class="about-title serif">
+          Estratégia digital com<br />
+          <span class="accent-orange">visão de resultado.</span>
+        </h2>
+        <p class="about-body">
+          Somos uma agência e hub de conhecimento digital. Além de cuidar da sua presença online, produzimos conteúdo educativo no Instagram, TikTok e demais canais — para que você entenda o que está sendo feito e evolua junto com o seu negócio.
+        </p>
+      </div>
+      <div class="about-visual">
+        <div class="glass about-list">
+          <div class="about-item">
+            <div class="about-icon">📣</div>
+            <div class="about-item-text">
+              <h4>Atrai mais clientes</h4>
+              <p>Anúncios e conteúdo que chegam para quem já está buscando o que você oferece.</p>
+            </div>
+          </div>
+          <div class="about-item">
+            <div class="about-icon">🎓</div>
+            <div class="about-item-text">
+              <h4>Hub de conhecimento digital</h4>
+              <p>Produzimos conteúdo educativo no Instagram e TikTok para que você entenda o que está sendo feito e tome decisões mais seguras.</p>
+            </div>
+          </div>
+          <div class="about-item">
+            <div class="about-icon">📈</div>
+            <div class="about-item-text">
+              <h4>Estratégia com foco em resultado</h4>
+              <p>Cada ação é planejada com intenção clara — presença, geração de leads e conversão trabalhadas em conjunto.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVIÇOS ══════════════════════════════════════════ -->
+<section id="servicos">
+  <div class="blob blob-blue" style="width:500px;height:500px;bottom:-100px;left:-100px;opacity:.3;"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="section-header">
+      <span class="section-label">Serviços</span>
+      <h2 class="section-title serif">O que a Zenit<br /><span class="accent-orange">entrega para você</span></h2>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card glass">
+        <div class="svc-icon">📱</div>
+        <h3>Redes Sociais, Blogs & Sites</h3>
+        <p>Criamos e gerenciamos conteúdo no Instagram, TikTok, Facebook e Blog — além de desenvolver sites que representam sua marca com profissionalismo.</p>
+      </div>
+      <div class="svc-card glass">
+        <div class="svc-icon">🎯</div>
+        <h3>Tráfego Pago & Orgânico</h3>
+        <p>Unimos campanhas pagas (Google e Meta Ads) com estratégias de engajamento orgânico — conteúdo relevante, uso de tendências, hashtags e SEO de conteúdo para crescer de forma consistente e sustentável.</p>
+      </div>
+      <div class="svc-card glass">
+        <div class="svc-icon">🔍</div>
+        <h3>Google Meu Negócio & SEO</h3>
+        <p>Configuramos e otimizamos seu perfil no Google para que sua empresa apareça nas buscas locais. Aplicamos estratégias de SEO — palavras-chave, velocidade, autoridade — para crescer organicamente sem depender de anúncio.</p>
+      </div>
+      <div class="svc-card glass">
+        <div class="svc-icon">🌐</div>
+        <h3>Criação de Sites & Landing Pages</h3>
+        <p>Desenvolvemos sites institucionais e landing pages focadas em conversão — páginas criadas para transformar visitantes em clientes, com design profissional e copy estratégico.</p>
+      </div>
+      <div class="svc-card glass">
+        <div class="svc-icon">🛒</div>
+        <h3>Vendas em Marketplaces</h3>
+        <p>Gerenciamos sua loja no Shopee, Mercado Livre e outras plataformas — com descrições otimizadas, imagens estratégicas e acompanhamento de performance.</p>
+      </div>
+      <div class="svc-card glass">
+        <div class="svc-icon">📊</div>
+        <h3>Relatório Mensal Completo</h3>
+        <p>Todo mês você recebe um relatório claro e detalhado: o que cresceu, o que pode melhorar e quais ações serão feitas no próximo ciclo. Acompanhar seus resultados é o que transforma esforço em crescimento real.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMO FUNCIONA (JORNADA) ═══════════════════════════ -->
+<section id="jornada">
+  <div class="blob blob-orange" style="width:460px;height:460px;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.15;"></div>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Passo a passo</span>
+      <h2 class="section-title serif">Do primeiro clique<br /><span class="accent-orange">à venda fechada</span></h2>
+    </div>
+    <div class="journey-grid">
+
+      <div class="step-card glass">
+        <div class="step-number">01</div>
+        <h3>O cliente encontra você</h3>
+        <p>Através dos anúncios pagos, do Google ou das redes sociais, um cliente em potencial descobre a sua empresa. Ele clica no anúncio ou no seu perfil e chega até o seu WhatsApp ou site.</p>
+        <span class="step-tag">Google · Instagram · TikTok</span>
+      </div>
+
+      <div class="step-card glass step-highlight">
+        <div class="step-number">02</div>
+        <h3>Atendimento especializado para cada case</h3>
+        <p>Nossa equipe entra em ação com um olhar dedicado ao seu negócio. Analisamos o seu mercado, o seu público e o momento atual da sua empresa — e apresentamos um diagnóstico honesto do que faz sentido para você. Nada de solução genérica: cada estratégia é construída a partir da sua realidade.</p>
+        <span class="step-tag">Diagnóstico personalizado · Estratégia sob medida</span>
+      </div>
+
+      <div class="step-card glass step-highlight">
+        <div class="step-number">03</div>
+        <h3>Interesse confirmado: com suporte total da Zenit</h3>
+        <p>Quando você decide avançar, não fica sozinho. Nossa equipe cuida da implementação completa — das configurações técnicas ao lançamento — e continua ao seu lado com suporte contínuo. Você foca no negócio; a Zenit garante que o digital funcione.</p>
+        <span class="step-tag">Implementação completa · Suporte contínuo</span>
+      </div>
+
+      <div class="step-card glass">
+        <div class="step-number">04</div>
+        <h3>Venda fechada — e o relacionamento começa</h3>
+        <p>Após a compra, o sistema envia automaticamente uma mensagem de agradecimento, solicita avaliação e, no momento certo, oferece um produto complementar. Seu cliente vira fã e compra de novo.</p>
+        <span class="step-tag">Pós-venda · Recompra · Fidelização</span>
+      </div>
+
+      <div class="step-card glass full">
+        <div class="step-number">+</div>
+        <h3>Você acompanha tudo em um painel simples</h3>
+        <p>Sem planilhas complicadas. Todo mês você recebe um relatório em linguagem simples: quantas pessoas viram seus anúncios, quantas mandaram mensagem, quantas compraram — e o que faremos no próximo mês para melhorar esses números. Nada de gráficos incompreensíveis.</p>
+        <span class="step-tag">Relatório mensal · Reunião de alinhamento</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ EQUIPE ════════════════════════════════════════════ -->
+<section id="equipe">
+  <div class="blob blob-orange" style="width:420px;height:420px;bottom:-60px;left:-80px;opacity:.28;"></div>
+  <div class="container">
+    <div class="team-inner">
+      <div class="team-text">
+        <p class="about-label">Quem somos</p>
+        <h2 class="team-title serif">
+          Zenit: o ponto<br />
+          <span class="accent-orange">mais alto do céu.</span>
+        </h2>
+        <p class="team-body">
+          Na astronomia, o zênite é o ponto mais elevado que se pode alcançar. É com essa visão que construímos a Zenit — uma agência com conhecimento atualizado, olhar estratégico e comprometimento real com o crescimento de cada cliente.
+        </p>
+        <p class="team-body" style="margin-top: 16px;">
+          Não entregamos pacotes prontos. Construímos presença digital com consistência, dados e intenção — porque acreditamos que todo negócio merece chegar ao seu ponto mais alto.
+        </p>
+      </div>
+      <div class="team-img-wrap">
+        <div class="glass">
+          <div class="team-img-placeholder">
+            <div class="team-emoji">🧑‍💻</div>
+            <span>Adicione uma foto da sua equipe aqui</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTATO ═══════════════════════════════════════════ -->
+<section id="contato">
+  <div class="blob blob-blue" style="width:500px;height:500px;bottom:-100px;right:-100px;opacity:.3;"></div>
+  <div class="blob blob-orange" style="width:300px;height:300px;top:0;left:-60px;opacity:.22;"></div>
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-left">
+        <p class="about-label">Vamos começar</p>
+        <h2 class="contact-title serif">
+          Seu negócio merece<br />estar no <span class="accent-orange">ponto mais alto.</span>
+        </h2>
+        <p class="contact-sub">
+          A maioria das empresas perde clientes todos os dias por não ter uma presença digital estruturada. Não deixe que isso continue acontecendo com a sua.
+        </p>
+
+        <!-- Diagnóstico passo a passo -->
+        <div class="diag-steps">
+          <div class="diag-item">
+            <div class="diag-num">1</div>
+            <div class="diag-text">
+              <strong>Você preenche o formulário</strong>
+              <p>Nos conte o básico sobre seu negócio e qual é o seu maior desafio hoje.</p>
+            </div>
+          </div>
+          <div class="diag-item">
+            <div class="diag-num">2</div>
+            <div class="diag-text">
+              <strong>Um especialista entra em contato</strong>
+              <p>Em até 24h, um consultor da Zenit analisa seu perfil e agenda uma conversa sem compromisso.</p>
+            </div>
+          </div>
+          <div class="diag-item">
+            <div class="diag-num">3</div>
+            <div class="diag-text">
+              <strong>Diagnóstico gratuito e personalizado</strong>
+              <p>Mapeamos onde seu negócio está perdendo oportunidades no digital e apresentamos um plano claro de como chegar lá.</p>
+            </div>
+          </div>
+          <div class="diag-item">
+            <div class="diag-num">4</div>
+            <div class="diag-text">
+              <strong>Decisão sua, sem pressão</strong>
+              <p>Se fizer sentido avançar, apresentamos a proposta ideal. Se não for o momento, tudo bem — o diagnóstico já é seu.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-items" style="margin-top:32px;">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--accent-light)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.524 3.66 1.438 5.168L2 22l4.964-1.418A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.064-1.113l-.291-.173-3.024.864.872-3.02-.19-.31A7.96 7.96 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/></svg>
+            </div>
+            <div class="contact-item-text">
+              <p>WhatsApp</p>
+              <a href="https://wa.me/5511999999999" target="_blank">(11) 99999-9999</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-item-text">
+              <p>E-mail</p>
+              <a href="mailto:contato@agenciazenit.com.br">contato@agenciazenit.com.br</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📸</div>
+            <div class="contact-item-text">
+              <p>Instagram</p>
+              <a href="#" target="_blank">@agenciazenit</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div class="glass" style="border-color:rgba(59,130,246,.2);">
+          <p style="font-size:.78rem;color:var(--accent-light);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;font-weight:500;">Diagnóstico Gratuito</p>
+          <form onsubmit="return false;">
+            <div class="form-group">
+              <label>Seu nome</label>
+              <input type="text" placeholder="Ex: João Silva" />
+            </div>
+            <div class="form-group">
+              <label>WhatsApp</label>
+              <input type="tel" placeholder="(11) 99999-9999" />
+            </div>
+            <div class="form-group">
+              <label>Qual é o seu negócio?</label>
+              <select>
+                <option value="">Selecione...</option>
+                <option>Loja física ou comércio local</option>
+                <option>Loja online (e-commerce)</option>
+                <option>Prestação de serviços</option>
+                <option>Influenciador / criador de conteúdo</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Qual é o seu maior desafio hoje?</label>
+              <textarea placeholder="Ex: Não apareço no Google, não consigo clientes pelas redes sociais, minha concorrência está crescendo..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-orange form-submit" style="font-size:.95rem;">
+              Quero meu diagnóstico gratuito →
+            </button>
+            <p style="text-align:center;font-size:.75rem;color:var(--muted);margin-top:14px;">Sem compromisso. Resposta em até 24h.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="#hero" class="nav-logo" title="Agência Digital Zenit">
+        <svg width="158" height="38" viewBox="0 0 158 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="rktGrd2" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#3B82F6"/>
+              <stop offset="100%" stop-color="#818CF8"/>
+            </linearGradient>
+          </defs>
+          <g transform="translate(2,3)">
+            <path d="M13 2 C13 2 18 6 18 14 L13 17 L8 14 C8 6 13 2 13 2Z"
+                  fill="none" stroke="url(#rktGrd2)" stroke-width="1.5" stroke-linejoin="round"/>
+            <circle cx="13" cy="11" r="2" fill="none" stroke="url(#rktGrd2)" stroke-width="1.2"/>
+            <path d="M8 14 L5 18 L8 17" fill="none" stroke="url(#rktGrd2)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18 14 L21 18 L18 17" fill="none" stroke="url(#rktGrd2)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11 17 Q13 21 15 17" fill="none" stroke="url(#rktGrd2)" stroke-width="1.3" stroke-linecap="round" opacity=".7"/>
+            <path d="M12 18 Q13 23 14 18" fill="none" stroke="url(#rktGrd2)" stroke-width="1" stroke-linecap="round" opacity=".4"/>
+            <rect x="25" y="20" width="3" height="6" rx="1" fill="url(#rktGrd2)" opacity=".5"/>
+            <rect x="30" y="15" width="3" height="11" rx="1" fill="url(#rktGrd2)" opacity=".7"/>
+            <rect x="35" y="10" width="3" height="16" rx="1" fill="url(#rktGrd2)"/>
+            <polyline points="26.5,20 31.5,14 36.5,9"
+                      fill="none" stroke="#60A5FA" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+            <circle cx="36.5" cy="9" r="1.5" fill="#60A5FA"/>
+          </g>
+          <text x="50" y="21" font-family="Questrial, sans-serif" font-size="15" fill="#FFFFFF" letter-spacing="3">ZENIT</text>
+          <text x="50" y="33" font-family="Questrial, sans-serif" font-size="7" fill="rgba(255,255,255,0.38)" letter-spacing="3">AGÊNCIA &amp; HUB</text>
+        </svg>
+      </a>
+      <div class="footer-links">
+        <a href="#sobre">O que fazemos</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#jornada">Como funciona</a>
+        <a href="#equipe">Quem somos</a>
+        <a href="#contato">Contato</a>
+      </div>
+      <div class="social-row">
+        <a href="#" class="social-btn" title="Instagram">📸</a>
+        <a href="#" class="social-btn" title="Facebook">👤</a>
+        <a href="https://wa.me/5511999999999" class="social-btn" title="WhatsApp" target="_blank">💬</a>
+      </div>
+    </div>
+    <p class="footer-copy" style="margin-top:24px;text-align:center;">© 2025 ZENIT — Agência & Hub · Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<!-- WA float -->
+<a href="https://wa.me/5511999999999?text=Oi!%20Vi%20o%20site%20da%20Zenit%20e%20quero%20saber%20mais."
+   class="wa-float" target="_blank" rel="noopener" title="Falar no WhatsApp">💬</a>
+
+<script>
+  // smooth active nav
+  const secs = document.querySelectorAll('section[id]');
+  const navAs = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    secs.forEach(s => { if (window.scrollY >= s.offsetTop - 140) cur = s.id; });
+    navAs.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + cur
+        ? 'var(--white)' : '';
+    });
+  });
+</script>
+</body>
+</html>
